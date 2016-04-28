@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+
+
+		var whoHasCome = prompt('Кто пришел ?', '');
+		if(whoHasCome == 'PHP'){
+			alert('Не не стоит');
+		}else if (whoHasCome == 'JavaScript'){
+			var authorisation = prompt('Введите пароль', '');
+			var password = (authorisation == "ECMA") ? 'Добро пожаловать' : (authorisation != 'ECMA' && authorisation != '') ? 'Пароль не верен' : 'Вход отменен';
+			alert(password);
+		}else{
+			alert('Вход отменен');
+		}
+
+		// Задание Авторизация
+		/*Начало:
+			1) Кто пришел?
+				а) '' - вход отменен
+				б) 'PHP' - нет не стоит
+				в) 'JavaScript' - пароль
+
+					1) '' - вход отменен
+					2) 'Не важно что' - пароль не верен
+					3) 'ECMA' - Добро пожаловать 
+*/
+	</script>
+</body>
+</html>
+

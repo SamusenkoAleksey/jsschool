@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+	<title>Homework2(DOM)</title>
+<head>
+</head>
+<body>
+	<ul id='list'>
+		<li>First element</li>
+		<li>Second element</li>
+		<li>Third element</li>
+		<li>Fourth element</li>
+		<li>Fifth element</li>
+	</ul>
+	<form>
+		<input type='text' id='myinput' name='input' size='30'><br/>
+		<input type='button' value='Добавить' onclick='append(this.form)'/>
+		<input type='button' value='Удалить' onclick='clean(this.form)' />
+		<input type='button' value='Выбрать первый елемент' onclick='choseFristElement(this.form)' />
+		<input type='button' value='Выбрать последний елемент' onclick='choseLastElement(this.form)' />
+		<input type='button' value='Добавить в начало' onclick='putOnFirstPlaceInTheList(this.form)' />
+		<input type='button' value='Выбрать следющий элемент' onclick='goToNextSibling(this.form)' />
+		<input type='button' value='Выбрать предыдущий элемент' onclick='goToPreviousSibling(this.form)' />
+	</form>
+	<script type="text/javascript">
+		var doc = document;
+
+		//function startFromTheScratch reset style=color : red
+		function startFromTheScratch (form){
+			var myListChildren = doc.getElementById('list').children;
+			for(var i = 0; i < myListChildren.length ; i++){
+				if(myListChildren[i].getAttribute('style') == 'color: red;'){
+					myListChildren[i].removeAttribute('style');
+				};
+			};	
+		}
+
+		function goToPreviousSibling (form){
+			var myList = doc.getElementById('list');
+			var	children = myList.children;
+			for(var i = 0; i < children.length ; i++){
+				if(children[i].getAttribute('style') && children[i].previousElementSibling == null){
+					startFromTheScratch();
+					children[children.length -1 ].setAttribute('style', 'color: red;');
+					break;
+				}else if(children[i].getAttribute('style') && children[i].previousElementSibling != null && children[i].nextElementSibling != null){
+					startFromTheScratch();
+					children[i].previousElementSibling.setAttribute('style', 'color: red;');
+					break;
+				}else if(children[i].getAttribute('style') && children[i].nextElementSibling == null){
+					startFromTheScratch();
+					children[i].previousElementSibling.setAttribute('style', 'color: red;');
+					break;
+				};
+			};	
+		};
+
+		function goToNextSibling (form){
+			var myList = doc.getElementById('list');
+			var	children = myList.children;
+			for(var i = 0; i < children.length ; i++){
+				if(children[i].getAttribute('style') && children[i].previousElementSibling == null){
+					startFromTheScratch();
+					children[i].nextElementSibling.setAttribute('style', 'color: red;');
+					break;
+				}else if(children[i].getAttribute('style') && children[i].previousElementSibling != null && children[i].nextElementSibling != null){
+					startFromTheScratch();
+					children[i].nextElementSibling.setAttribute('style', 'color: red;');
+					break;
+				}else if(children[i].getAttribute('style') && children[i].nextElementSibling == null){
+					startFromTheScratch();
+					children[0].setAttribute('style', 'color: red;');
+					break;
+				};
+			};	
+		};
+
+		function putOnFirstPlaceInTheList(form){
+			var myList = doc.getElementById('list');
+			var myListChildren = myList.children;
+			var firstElement = myListChildren[0];
+			for(var i = 0; i < myListChildren.length ; i++){
+			 	if(myListChildren[i].getAttribute('style') == 'color: red;'){
+					myList.replaceChild(myListChildren[i], firstElement)
+				};
+			};
+		};
+
+		function append (form){
+			if(form.input.value){
+				var myList = document.getElementById('list');
+				var addedIl = document.createElement('li');
+				addedIl.innerHTML = form.input.value;
+				myList.appendChild(addedIl);
+			};
+			
+		};
+
+		function clean (form){
+			var myList = document.getElementById('list');
+			if(myList.childNodes.length > 0){
+				myList.removeChild(myList.lastElementChild);
+			};
+		};
+
+		function choseFristElement(form){
+			startFromTheScratch();
+			var myList = document.getElementById('list');
+			var firstElement = list.firstElementChild;
+			firstElement.style.color = 'red';
+		};
+
+		function choseLastElement(form){
+			startFromTheScratch();
+			var myList = document.getElementById('list');
+			var lastElement = list.lastElementChild;
+			lastElement.style.color = 'red';
+		};
+	</script>
+</body>
+</html>
