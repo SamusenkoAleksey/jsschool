@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<title>Homework3</title>
+	<style>
+		
+	</style>
+<head>
+</head>
+<body>
+	<div id='one'>one</div>
+	<script>
+  // Добавьте после дива с id=one еще один див с текстом two и id=two
+    // На клик по id=two добавьте перед ним див с id - two_first, а див с id=two измените на two_second 
+		(function() {
+   			var firstDiv = document.getElementById('one');
+            var secondDiv = '<div id="two">two</div>';
+   			console.log(firstDiv);
+            console.log(secondDiv);
+            firstDiv.insertAdjacentHTML('beforeBegin', secondDiv);
+		})();
+	</script>
+</body>
+</html>
