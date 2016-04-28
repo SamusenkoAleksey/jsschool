@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
-	<title>Homework2(DOM)</title>
+	<title>Homework3</title>
+	<style type="text/css">
+		.class1 {
+            color: blue;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+	</style>
 <head>
 </head>
 <body>
@@ -8,7 +15,19 @@
 	<script type="text/javascript">
 		(function() {
    			var title = document.getElementById('title');
-   			console.log(title);
+
+
+   			title.style.color = 'red';
+
+   			title.style.cssText = 'color: blue; font-size: 14px;text-decoration: underline; margin-top: 100px; background-color: red;';
+
+   			title.classList.add('class1');
+
+   			title.classList.add('newClass');
+
+   			var getComputed = getComputedStyle(title);
+   			console.log(getComputed);
+   			
 		})();
 	</script>
 </body>
