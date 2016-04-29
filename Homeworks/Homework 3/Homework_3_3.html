@@ -29,6 +29,13 @@
     </div>
     <a href="#">Link</a>
     <script>
-      
-       
+        var pageBody = document.body;
+
+        var pInBody = pageBody.getElementsByTagName('p');
+        for (var i = 0;i < pInBody.length;i++){
+            pInBody[i].style.color = 'brown';
+        };
+
+
+       console.log(pInBody);
     </script>
