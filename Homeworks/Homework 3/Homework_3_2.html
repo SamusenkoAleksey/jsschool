@@ -17,6 +17,10 @@
     p, a {
         text-transform: uppercase;
     }*/
+
+        .upperCase {
+            text-transform: uppercase;
+        }
 	</style>
 <head>
 </head>
@@ -30,19 +34,22 @@
             var textBox = document.getElementsByTagName('p')[0];
             var boxToUpperCase = textBox.childNodes[0].data.toUpperCase();
             var textBoxUpperCase = '<p>' + boxToUpperCase + '<p/>';
+            var link = document.getElementsByTagName('a')[0];
 
-           elementsInBody.children[1].removeChild(textBox);
-           elementsInBody.children[1].children[1].insertAdjacentHTML('beforeBegin', textBoxUpperCase);
+            //making <a> to upperCase
+            link.classList.add('upperCase');  
+
+            link.style.cssText = 'font-weight: bold; font-style: italic; text-decoration: underline;' ;
+            //making <p> to upperCase
+            elementsInBody.children[1].removeChild(textBox);
+            elementsInBody.children[1].children[1].insertAdjacentHTML('beforeBegin', textBoxUpperCase);
 
             elementsInBody.style.cssText = 'color: red; text-decoration: none;';
             textBox.style.color = 'brown';
             
-           console.log() 
-                        
-            //var res = str.toUpperCase();
             
-            //console.log(elementsInBody.children[1].removeChild(textBox));
 
+                        
 
       
 
