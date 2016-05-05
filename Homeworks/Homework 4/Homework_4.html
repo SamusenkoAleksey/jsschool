@@ -19,35 +19,44 @@
 <!--     Создайте счетчик, который начинает отчет с 1 и заканчивается на 30, также добавьте кнопки который останавливают отчет, и запускают его заново и добавьте кнопку обнуляющую отчет. Также попробуйте изменить код так чтобы отчет начинался с 30 и заканчивался на 1. -->
 	
 	<button class='buttons' onclick="startCounting()">Начать отчет</button>
-	<button class='buttons' onclick="myFunction()">Остановить отчет</button>
-	<button class='buttons' onclick="myFunction()">Обнулить отчет</button>
+	<button class='buttons' onclick="toStopCounter()">Остановить отчет</button>
+	<button class='buttons' onclick="myFunction()"></button/>
 	
 
 	<script type="text/javascript">
+		var counterProcess;
+		var counterIndicator = 0;
+		showCounter();
+
+
 
 		function showCounter (){
-			var counterDiv = '<div class=\'counter\'>' + counter + '<div/>';
+			var counterDiv = '<div class=\'counter\'>' + counterIndicator + '<div/>';
 			var lastButton = document.getElementsByClassName('buttons')[2];
 			lastButton.insertAdjacentHTML('afterEnd', counterDiv);
 		};
 
 		
-		var counter = 0;
-		showCounter();
+		
 
 		
         function startCounting() {
-            setTimeout(function(){
-            	counter += 1;
+        		counterProcess = setTimeout(function(){
+            	counterIndicator += 1;
+            	
             	showCounter();
             	var lastCounterList = document.getElementsByClassName('counter')[1];
             	document.body.removeChild(lastCounterList);
+            	
 				startCounting();
-        }, 1000);
-        }
+        		}, 450);
+        };
 
 	
-		
+		function toStopCounter () {
+			clearTimeout(counterProcess);
+		};
+
 		
 		
 
