@@ -18,62 +18,50 @@
 <body>
 <!--     Создайте счетчик, который начинает отчет с 1 и заканчивается на 30, также добавьте кнопки который останавливают отчет, и запускают его заново и добавьте кнопку обнуляющую отчет. Также попробуйте изменить код так чтобы отчет начинался с 30 и заканчивался на 1. -->
 	
-	<button class='buttons' onclick="startCounting()">Начать отчет</button>
-	<button class='buttons' onclick="toStopCounter()">Остановить отчет</button>
-	<button class='buttons' onclick="myFunction()"></button/>
+	<button class='buttons' onclick="startCounting()">Запустить отчет</button>
+	<button class='buttons' onclick="stopCounting()">Остановить отчет</button>
+	<button class='buttons' onclick="setCountingBackToZero()">Обнулить отчет</button>
+	
+	<div id='counterDiv'>
+
+	</div>
 	
 
 	<script type="text/javascript">
-		var counterProcess;
-		var counterIndicator = 0;
-		showCounter();
+		var counter;
+		var divCounter = document.getElementById('counterDiv');
 
 
+		//adding 'counter' class
+    	divCounter.classList.add('counter');
 
-		function showCounter (){
-			var counterDiv = '<div class=\'counter\'>' + counterIndicator + '<div/>';
-			var lastButton = document.getElementsByClassName('buttons')[2];
-			lastButton.insertAdjacentHTML('afterEnd', counterDiv);
+
+    	//functions section below
+
+		function startCounting () {
+			counter = setTimeout(function(){
+				divCounter.innerHTML = counter;
+            	startCounting();
+            	if(counter > 30){
+					stopCounting();
+				};
+       		}, 1000);
 		};
 
-		
-		
 
-		
-        function startCounting() {
-        		counterProcess = setTimeout(function(){
-            	counterIndicator += 1;
-            	
-            	showCounter();
-            	var lastCounterList = document.getElementsByClassName('counter')[1];
-            	document.body.removeChild(lastCounterList);
-            	
-				startCounting();
-        		}, 450);
-        };
+		function stopCounting () {
 
-	
-		function toStopCounter () {
-			clearTimeout(counterProcess);
-		};
-
-		
-		
+       		clearTimeout(counter);
+    	};
 
 
+    	function setCountingBackToZero () {
+    		stopCounting();
+    		divCounter.innerHTML = counter;
+    		stopCounting();
+    	};
+    	
 
-
-		
-		
-		
-
-		
-
-
-
-	
-
-		
 	</script>
 </body>
 </html>
