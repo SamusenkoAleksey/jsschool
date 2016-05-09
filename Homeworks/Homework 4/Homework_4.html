@@ -21,14 +21,17 @@
 	<button class='buttons' onclick="checkingIfTheCountingIsAlreadyStarted()">Запустить отчет</button>
 	<button class='buttons' onclick="stopCounting()">Остановить отчет</button>
 	<button class='buttons' onclick="setCountingBackToZero()">Обнулить отчет</button>
+    <button class='buttons' onclick="startFromTheScratch()">Начать сначала</button>
+    <button class='buttons' onclick="checkingIfTheCountingIsAlreadyStartedReverse()">Обратний отчет</button>
 	
 	<div id='counterDiv'></div>
 	
 
 	<script type="text/javascript">
-		var counter;
+        var timeOutId;
+        var counter = 0;
         var timerRange = 30;
-        var timerSpeed = 500;
+        var timerSpeed = 1000;
 		var divCounter = document.getElementById('counterDiv');
         //adding 'counter' class
     	divCounter.classList.add('counter');
@@ -40,37 +43,123 @@
 
 
         function checkingIfTheCountingIsAlreadyStarted () {
-            if(counter === undefined){
+            if(!isCounterStarted()){
                 startCounting();
-            }else{
-                return;
-            } 
-        };
+            }
+        }
 
+        function checkingIfTheCountingIsAlreadyStartedReverse () {
+            counter = 30;
+            if(!isCounterStarted()){
+                startCountingReverse();
+            }
+        }
+
+        function isCounterStarted () {
+            return timeOutId != undefined;
+        }
 
 		function startCounting () {
-			counter = setTimeout(function(){
-				divCounter.innerHTML = counter;
-            	startCounting();
-            	if(counter > timerRange){
-					stopCounting();
-				};
-       		}, timerSpeed);
-		};
+			timeOutId = setTimeout(
+                function(){
+                    counter += 1;
+    				divCounter.innerHTML = counter;
+                	startCounting();
+                	if(counter >= timerRange){
+    					stopCounting();
+    				}
+                },
+                timerSpeed
+            );
+		}
+
+        
+       
+        function startCountingReverse () {
+            timeOutId = setTimeout(
+                function(){
+                    counter = counter - 1;
+                    divCounter.innerHTML = counter;
+                    startCountingReverse();
+                    if(counter <= 0){
+                        stopCounting();
+                    }
+                },
+                timerSpeed
+            );
+        }
 
 
 		function stopCounting () {
-       		clearTimeout(counter);
-    	};
+       		clearTimeout(timeOutId);
+            timeOutId = undefined;
 
+    	}
 
     	function setCountingBackToZero () {
     		stopCounting();
+            counter = 0;
     		divCounter.innerHTML = '0';
-        
-            counter = undefined;
-    	};
+            timeOutId = undefined;
+    	}
     	
+        function startFromTheScratch () {
+            if(isCounterStarted()){
+                setCountingBackToZero();
+                checkingIfTheCountingIsAlreadyStarted();
+            }; 
+        }
+
+        // var counter = getCounter(500, 10);
+
+        // function onClickStartButton() {
+        //     counter.start();
+        // }
+
+        // function getCounter(timeSpeed, maxValue) {
+        //     var currentValue = 0;
+        //     var timeOutId = null;
+        //     var isStarted = false;
+        //     return {
+        //         getValue: function() {
+        //             return currentValue;
+        //         },
+        //         isStarted: function() {
+        //             return isStarted;
+        //         },
+        //         stop: function() {
+        //             isStarted = false;
+        //             currentValue = 0;
+        //         },
+        //         resetCounter: function() {
+        //             currentValue = 0;
+        //         },
+        //         increment: function() {
+        //             var that = this;
+        //             if (isStarted) {
+        //                  timeOutId = setTimeout(
+        //                 function(){
+        //                     divCounter.innerHTML = ++currentValue;
+        //                         that.increment();      
+                            
+                
+        //                     if(currentValue >= maxValue || !isStarted){
+        //                         that.stop();
+        //                     }
+        //                 },
+        //                 timerSpeed
+        //                 );
+        //             }
+                  
+        //         },
+        //         start: function () {
+        //             isStarted = true;
+        //            this.increment();
+            
+        //         }
+        //     };
+        // }
+
 
 	</script>
 </body>
