@@ -21,8 +21,16 @@
 			getSplittedString: function (){
 				var string = this.askQuestion();
 				if(string != '' && string != null){
-					return string.split(' ');
-				};
+					var arr = string.split(' ');
+					function isSpace (elem){
+					return elem == '';
+					}
+					if(!arr.every(isSpace)){
+						return arr;
+					}else{
+						alert('Вы не ввели ни одного символа !');
+					}
+				};		
 			},
 			hasOnlySpaces: function (){
 				var splittedString = this.getSplittedString();
@@ -30,14 +38,28 @@
 					return elem == '';
 				}
 				return splittedString.every(isPositive);
+			},
+			createList: function () {
+				var splittedString = this.getSplittedString();
+				var list = document.createElement('ul');
+				document.body.appendChild(list);
+				for(var i = 0;i < splittedString.length; i++){
+					if(splittedString[i] != ' '){
+						console.log(splittedString[i]);
+					}
+					
+				}
+				
+
+				
 			}
 
 
 		}
 
-
-console.log(userAnswer.hasOnlySpaces());
+userAnswer.createList();
 
 	</script>
+
 </body>
 </html>
