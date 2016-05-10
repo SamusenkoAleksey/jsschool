@@ -1,5 +1,5 @@
 <!-- 
-    1)Запросите у пользователя ввести какую-то фразу. 
+    1)Запросите у пользователя ввести какую-то фразу. (DONE)
     2)Отобразите каждое отдельное слово в виде списка ul li. 
     3)Также отобразите первое слово UPPERCASE, 
     4)а последние 2 с маленькой. 
@@ -12,5 +12,32 @@
     <title>Homework_4_1</title>
 </head>
 <body>
+	<script type="text/javascript">
+
+		var userAnswer = {
+			askQuestion: function (){
+				return prompt("Введите любую фразу", '');
+			},
+			getSplittedString: function (){
+				var string = this.askQuestion();
+				if(string != '' && string != null){
+					return string.split(' ');
+				};
+			},
+			hasOnlySpaces: function (){
+				var splittedString = this.getSplittedString();
+				function isPositive (elem){
+					return elem == '';
+				}
+				return splittedString.every(isPositive);
+			}
+
+
+		}
+
+
+console.log(userAnswer.hasOnlySpaces());
+
+	</script>
 </body>
 </html>
