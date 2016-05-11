@@ -1,8 +1,8 @@
 <!-- 
     1)Запросите у пользователя ввести какую-то фразу. (DONE)
-    2)Отобразите каждое отдельное слово в виде списка ul li. 
-    3)Также отобразите первое слово UPPERCASE, 
-    4)а последние 2 с маленькой. 
+    2)Отобразите каждое отдельное слово в виде списка ul li. (DONE)
+    3)Также отобразите первое слово UPPERCASE, (DONE)
+    4)а последние 2 с маленькой. (DONE)
     5)Найдите все буквы "а"  их количество выведите в модальное окно. 
  -->
 <!DOCTYPE html>
@@ -20,38 +20,60 @@
 			},
 			getSplittedString: function (){
 				var string = this.askQuestion();
-				if(string != '' && string != null){
-					var arr = string.split(' ');
-					function isSpace (elem){
-					return elem == '';
-					}
-					if(!arr.every(isSpace)){
-						return arr;
-					}else{
-						alert('Вы не ввели ни одного символа !');
-					}
-				};		
-			},
-			hasOnlySpaces: function (){
-				var splittedString = this.getSplittedString();
-				function isPositive (elem){
-					return elem == '';
+				var splittedString = string.split(' ');
+				if(splittedString == ''){
+					alert('Вы ничего не ввели.');	
+				}else if(splittedString.every(this.isSpase)){
+					alert('Введите хотя бы один символ');
+				}else{
+					return splittedString.filter(this.deleteSpaces);
 				}
-				return splittedString.every(isPositive);
+			},
+			isSpase: function (arr){
+					return arr == '';
+			},
+			deleteSpaces: function (arr){
+				return arr != '';
+			},
+			firstLiToUpperCase: function (ul) {
+				var firstLi = ul.firstElementChild;
+				var firstUpperLi = '<li>' + firstLi.childNodes[0].data.toUpperCase() + '</li>';
+
+				ul.removeChild(firstLi);
+				ul.children[0].insertAdjacentHTML('beforeBegin', firstUpperLi);
+			},
+			twoLastLiToLowerCase: function (ul) {
+				var lastLi = ul.lastElementChild;
+				var lastLowerLi = '<li>' + lastLi.childNodes[0].data.toLowerCase() + '</li>';
+				var preLastLi = lastLi.previousElementSibling;
+				var preLastLowerLi = '<li>' + preLastLi.childNodes[0].data.toLowerCase() + '</li>';
+
+				//replacing pre last <li>
+				ul.removeChild(preLastLi);
+				ul.lastElementChild.insertAdjacentHTML('beforeBegin',preLastLowerLi);
+
+				//replacing last <li>
+				ul.removeChild(lastLi);
+				ul.lastElementChild.insertAdjacentHTML('beforeEnd',lastLowerLi);
 			},
 			createList: function () {
 				var splittedString = this.getSplittedString();
-				var list = document.createElement('ul');
-				document.body.appendChild(list);
+				var listElement = document.createElement('ul');
+				document.body.appendChild(listElement);
+				var createdList = document.getElementsByTagName('ul')[0];
+
 				for(var i = 0;i < splittedString.length; i++){
 					if(splittedString[i] != ' '){
-						console.log(splittedString[i]);
-					}
-					
-				}
-				
+						var separatedWord = document.createElement('li');
+						separatedWord.innerHTML = splittedString[i];
+						createdList.appendChild(separatedWord);
+					};
+				};
+				//make first li toUpper case 
+				this.firstLiToUpperCase(listElement);
 
-				
+				//make last two li toUpper case 
+				this.twoLastLiToLowerCase(listElement);
 			}
 
 
