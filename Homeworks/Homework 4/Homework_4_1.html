@@ -3,7 +3,7 @@
     2)Отобразите каждое отдельное слово в виде списка ul li. (DONE)
     3)Также отобразите первое слово UPPERCASE, (DONE)
     4)а последние 2 с маленькой. (DONE)
-    5)Найдите все буквы "а"  их количество выведите в модальное окно. 
+    5)Найдите все буквы "а"  их количество выведите в модальное окно. (DONE)
  -->
 <!DOCTYPE html>
 <html>
@@ -18,6 +18,12 @@
 			askQuestion: function (){
 				return prompt("Введите любую фразу", '');
 			},
+			isSpase: function (arr){
+					return arr == '';
+			},
+			deleteSpaces: function (arr){
+				return arr != '';
+			},
 			getSplittedString: function (){
 				var string = this.askQuestion();
 				var splittedString = string.split(' ');
@@ -26,14 +32,10 @@
 				}else if(splittedString.every(this.isSpase)){
 					alert('Введите хотя бы один символ');
 				}else{
+					this.letterCounter(string);
 					return splittedString.filter(this.deleteSpaces);
+					
 				}
-			},
-			isSpase: function (arr){
-					return arr == '';
-			},
-			deleteSpaces: function (arr){
-				return arr != '';
 			},
 			firstLiToUpperCase: function (ul) {
 				var firstLi = ul.firstElementChild;
@@ -55,6 +57,16 @@
 				//replacing last <li>
 				ul.removeChild(lastLi);
 				ul.lastElementChild.insertAdjacentHTML('beforeEnd',lastLowerLi);
+			},
+			letterCounter: function (string){
+				counter = 0;
+				for(var i = 0 ; i < string.length ; i++ ){
+					if(string[i].indexOf('a') != -1){
+						counter ++
+					};
+
+				};
+				document.body.insertAdjacentHTML('afterEnd', 'кол-во букв \'а\' ' + counter);
 			},
 			createList: function () {
 				var splittedString = this.getSplittedString();
