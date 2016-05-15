@@ -16,7 +16,7 @@
     <script>
         function myFunction() {
             var str = "https:// Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, ut.";
-            var patt = new RegExp("https");
+            var patt = new RegExp(" ");
             var res = patt.test(str); //Содержит ли строка символ https
             document.getElementById("demo").innerHTML = res;
         }

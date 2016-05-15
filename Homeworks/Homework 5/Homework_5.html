@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homework_5</title>
+</head>
+<body>
+    <div id="parent">parent
+        <div id="child">child</div>
+    </div>
+    <script>
+        var divParent = document.getElementById("parent");
+
+        divParent.onmouseover = function () {
+            console.log("onmouseover");
+        };
+        divParent.onmouseout = function () {
+            console.log("onmouseout"); // срабатывает на попадание курсора в chilf елемент
+        };
+
+        // !!!ЗАПОМНИТЬ!!!
+
+        // divParent.onmouseenter = function () {
+        //     console.log("onmouseenter");
+        // };
+        // divParent.onmouseleave = function () {
+        //     console.log("onmouseleave");
+        // };
+    </script>
+</body>
+</html>

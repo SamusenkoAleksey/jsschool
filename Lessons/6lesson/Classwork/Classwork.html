@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var heroContectDiv = document.getElementById('hero-content');
+		var questionList = document.getElementById('question-mini-list');
+		var childrenOfQuestionList = questionList.children;
+
+
+		for (var i = 0 ; childrenOfQuestionList.length > i; i++) {
+		                childrenOfQuestionList[i].onclick = function () {
+		                // ссылаемся на элемент в котором произошло событие
+		                 this.style.background = 'red';
+		                };
+		            };
+
+		// heroContectDiv.onclick = function (event) {
+		//             heroContectDiv.style.background = 'red';
+		// };
+
+		var post = document.getElementsByClassName('post-text')[0];
+		post.onclick = function (event) {
+               event.target.style.background = 'red';
+            };
+            console.log();
+            
+	</script>
+    
+</script>
+</body>
+</html>
