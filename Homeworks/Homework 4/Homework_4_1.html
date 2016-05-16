@@ -70,14 +70,20 @@
 			},
 			createList: function () {
 				var splittedString = this.getSplittedString();
+				var checkedSplittedSpring;
+				if(splittedString == undefined || splittedString == null){
+					return;
+				}else{
+					checkedSplittedSpring = splittedString;
+				};
 				var listElement = document.createElement('ul');
 				document.body.appendChild(listElement);
 				var createdList = document.getElementsByTagName('ul')[0];
 
-				for(var i = 0;i < splittedString.length; i++){
-					if(splittedString[i] != ' '){
+				for(var i = 0;i < checkedSplittedSpring.length; i++){
+					if(checkedSplittedSpring[i] != ' '){
 						var separatedWord = document.createElement('li');
-						separatedWord.innerHTML = splittedString[i];
+						separatedWord.innerHTML = checkedSplittedSpring[i];
 						createdList.appendChild(separatedWord);
 					};
 				};

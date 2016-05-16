@@ -1,19 +1,74 @@
-<!-- Напишите регулярные выражения, которые будут выбирать 
-    индекс - 55535 - 5 numbers
-    ip адресс, пример 255.255.255.255
-    цены в долларах - $0.84, $2.84, $4
-    дата в виде - 30/12/2014 - день, месяц, год
+﻿<!-- Напишите регулярные выражения, которые будут выбирать 
+    индекс - 55535 - 5 numbers) (!Done)
+    ip адресс, пример 255.255.255.255 (!Done)
+    цены в долларах - $0.84, $2.84, $4 (!Done)
+    дата в виде - 30/12/2014 - день, месяц, год ()
  -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Homework_5</title>
+    <style type="text/css">
+    	#input-field {
+    		margin-bottom: 30px;
+    	}
+    </style>
 </head>
 <body>
-    <input type="input" id='index'>
+    <input type="text" id='input_field' name='input' size='30'></br>
+    <input type='button' value='Go!'>
     <script>
+		var inputField = document.querySelector('#input_field');
+		var button = document.querySelector('input[value]');
+		var inputValue = '29/17/2014';
+		
 
-        var index
+		button.addEventListener('click', getValue);
+
+		function getValue () {
+			var inputValuetoCheck = inputField.value;
+			if(inputValuetoCheck){
+				inputValue = inputValuetoCheck;
+			}else{
+				alert('empty');
+			}	
+		}
+
+	
+		var regularExpressions = {
+			fiveDigits: function () {
+				var indexPattern = /\d{5}/;
+				if(indexPattern.test(inputValue)){
+					alert('work');
+				}
+			},
+			ipAddress: function (){
+				var indexPattern = /(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/;
+				if(indexPattern.test(inputValue)){
+					alert('work');
+				}
+			},
+			dollarCurrensy: function () {
+				var indexPattern = /^\$+(\d)+(\.?)+(\d{1,2})$/;
+				if(indexPattern.test(inputValue)){
+					alert('work');
+				}
+			},
+			date: function () {
+				var indexPattern = /^([0-3][0-9])\/([1-9][0-2]?)\/(\d{4})/;
+				//var indexPattern = /\d{1,2}\/\d{1,2}\/\d{4}/;
+				if(indexPattern.test(inputValue)){
+					alert('work');
+				}
+			}
+
+		}
+		
+		
+regularExpressions.date();
+
+
+
     </script>
 </body>
 </html>
