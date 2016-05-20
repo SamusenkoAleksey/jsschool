@@ -1,0 +1,66 @@
+﻿<!-- Доработайте пример, 005_thisExample.html, при наведении мыши к одному из блоков, цвет блока должен измениться, на уникальный, такой которого еще нету у существующих блоков. Также выведите в блок текстовое оповещение о информации цвета, который используется для фона данного блока. При попытке закрыть вкладку, придупредите пользователя о том что информация будет утеряна. Используйте window.onload. Done  --> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Homework_5_1</title>
+<style>
+    .green-boxes {
+        background-color:green;
+        display: inline-block;
+        height: 150px;
+        width: 150px;
+        margin: 10px;
+        }
+</style>
+</head>
+<body>
+    <div class='box'>
+        <div class='green-boxes'></div>
+        <div class='green-boxes'></div>
+        <div class='green-boxes'></div>
+        <div class='green-boxes'></div>
+        <div class='green-boxes'></div>
+    </div>
+   
+
+    <script>
+
+        window.onload = function () {
+           parentBox.addEventListener('mouseover', setRandomColor);
+        };
+
+        var parentBox = document.querySelector('.box'),
+            childBoxes = document.querySelectorAll('.green-boxes');
+
+    
+
+            
+
+       // parentBox.addEventListener('mouseover', setRandomColor);    
+
+        function setRandomColor (event) {
+                var event = event || window.event,
+                    firstDigit = getRandomColor(),
+                    secondDigit = getRandomColor(),
+                    thirdDigit = getRandomColor();
+
+                if (event.target.parentNode == parentBox){
+                    event.target.style.cssText = 'background-color: rgb(' + firstDigit + ',' + secondDigit + ',' + thirdDigit + ');';
+                    event.target.innerHTML = event.target.style.backgroundColor;
+                };
+        }
+
+        function getRandomColor () {
+            return Math.floor(Math.random() * (256 - 0)) + 0;
+        }
+
+        window.onbeforeunload = function() { 
+      // событие на закрытие вкладки
+        return "Данные не сохранены. Точно перейти?";
+      };
+
+       
+    </script>
+</body>
+</html>
