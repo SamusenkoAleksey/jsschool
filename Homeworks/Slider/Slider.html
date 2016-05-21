@@ -36,6 +36,9 @@
     	.red_element{
     		background-color: red;
     	}
+        .black_element{
+            background-color: black;
+        }
     	#next{
 
     	}
@@ -47,35 +50,69 @@
 			<li class='blue_element slider_element'>Blue</li>
 			<li class='green_element slider_element'>Green</li>
 			<li class='red_element slider_element'>Red</li>
+            <li class='black_element slider_element'>Black</li>
 		</ul>
 	</div>
-	<button id='next'>Next</button>
+    <div id='buttons'>
+        <button id='next' data-ctrl='next'>Next</button>
+        <button id='prevous' data-ctrl='prev'>Previous</button>
+    </div>
+    
     <script>
+
+
+        // переписать этот код Нормально !!!!
+
+
     	var sliderBody = document.getElementById('slider'),
-    		sliderDiv = document.getElementById('slide-holder')
+    		sliderDiv = document.getElementById('slide-holder'),
+            buttonsBlock = document.getElementById('buttons'),
     		sliderChildren = sliderBody.children,
     		amountSliderChildren = sliderChildren.length,
     		sliderWidth = parseInt(getComputedStyle(sliderDiv).width),
 			totalWidth = amountSliderChildren * sliderWidth,
-			limit = sliderWidth * (amountSliderChildren - 1) + 'px';
+			limit = sliderWidth * (amountSliderChildren - 1) + 'px',
 			button = document.getElementById('next');
+            
+            
 
-			sliderBody.style.width = totalWidth + 'px';
+
+			buttonsBlock.addEventListener('click', startSlider);
+
+
+            function startSlider (event) {
+                if (!event) event = window.event;
+                var data = event.target.getAttribute('data-ctrl');
+                if(data == 'next') {
+                    goToNextSlide();
+                }else{
+                    goToPreviousSlide();
+                }
+            }
 
 
 
-			button.onclick = selectNext;
-
-			
-
-			function selectNext (argument) {
-				sliderBody.style.left = -200 + 'px';
-				console.log(sliderWidth);
+			function goToNextSlide () {
+				sliderBody.style.cssText += sliderWidth + 'px';
+                var firstLi = sliderBody.firstElementChild;
+                var clonedFirstLi = firstLi.cloneNode(true);
+                sliderBody.appendChild(clonedFirstLi);
+                sliderBody.removeChild(firstLi);
 			};
 
 
+            function goToPreviousSlide () {
+                sliderBody.style.cssText -= sliderWidth + 'px';
+                var lastLi = sliderBody.lastElementChild;
+                var clonedLastLi = lastLi.cloneNode(true);
+                sliderBody.insertBefore(clonedLastLi, sliderBody.firstElementChild);
+                sliderBody.removeChild(lastLi);
+            }
+
+            
 
 
+            
     </script>
 </body>
 </html>
