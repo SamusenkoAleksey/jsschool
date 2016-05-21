@@ -1,7 +1,7 @@
 <!--
 1. Создайте ссылку и див с текстом внутри, который изначально при загрузке страницы будет скрыт. (!DONE)
 2. При клике на ссылку див пропадает, если повторно нажать ссылку див и текст должны вернуться. (!DONE)
-3. Также создайте кнопку, которая будет отменять выполнение обработчика клика по ссылке.
+3. Также создайте кнопку, которая будет отменять выполнение обработчика клика по ссылке. (!DONE)
  -->
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,7 @@
 
             var link = document.querySelector('a');
             var textBlock = document.querySelector('.none');
-            
+            var button = document.getElementById('remove-button');
 
 
             link.addEventListener('click', showText);
@@ -44,20 +44,11 @@
                 };
             }
  
+            button.addEventListener('click', deleteEvent);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            function deleteEvent () {
+                link.removeEventListener('click', showText);
+            }
 
         </script>
 </body>
