@@ -58,6 +58,7 @@
 
             
             divImages.addEventListener('click', setPreviewImage);
+            buttonsBlock.addEventListener('click', setCurrentImage);
 
             function setPreviewImage (event) {
                 if (!event) event = window.event;
@@ -69,21 +70,33 @@
                 
             }
 
+
+            function setCurrentImage () {
+                if (!event) event = window.event;
+                var currentActiveElement = divImages.querySelector('.active'),
+                    dataCtrl = event.target.getAttribute('data-ctrl'),
+                    activeElementNextSibling = currentActiveElement.nextElementSibling,
+                    activeElementPreviousSibling = currentActiveElement.previousElementSibling;
+                
+                    if(dataCtrl == 'next' && activeElementNextSibling){
+                        var srcActiveElementNextSibling = activeElementNextSibling.getAttribute('src');
+                        activeElement(activeElementNextSibling);
+                        previewDiv.children[0].setAttribute('src', srcActiveElementNextSibling);
+                    }else if(dataCtrl == 'prev' && activeElementPreviousSibling){
+                        var srcActiveElementPreviousSibling = activeElementPreviousSibling.getAttribute('src');
+                        activeElement(activeElementPreviousSibling);
+                        previewDiv.children[0].setAttribute('src', srcActiveElementPreviousSibling);
+                    }
+            }
+
+
             function activeElement (element) {
-                var activeElements = divImages.querySelector('.active');
-                    activeElements.classList.remove('active');
+                    var currentActiveElement = divImages.querySelector('.active');
+                    currentActiveElement.classList.remove('active');
                     element.classList.add('active');
             }
 
-            buttonsBlock.addEventListener('click', setCurrentImage);
-            
 
-
-            // доделать кнопки 
-            function setCurrentImage () {
-                if (!event) event = window.event;
-
-            }
 
     </script>
 </body>
