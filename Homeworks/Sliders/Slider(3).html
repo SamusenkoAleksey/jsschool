@@ -48,26 +48,19 @@
             
 
             window.addEventListener("DOMContentLoaded", function(event) {
-                var firstElemnt = divImages.firstElementChild,
-                    firstElemSrc = divImages.firstElementChild.getAttribute('src'),
-                    currentImage = '<img src=\'' + firstElemSrc + '\'>';
-                
-                previewDiv.insertAdjacentHTML('afterBegin', currentImage); 
-                activeElement(firstElemnt);
+                var firstElemnt = divImages.firstElementChild;
+                setPreviewImage(firstElemnt);
             });
 
             
-            divImages.addEventListener('click', setPreviewImage);
+            divImages.addEventListener('click', setTargetPreview);
             buttonsBlock.addEventListener('click', setCurrentImage);
 
-            function setPreviewImage (event) {
+            function setTargetPreview (event) {
                 if (!event) event = window.event;
-                var srcImage = event.target.getAttribute('src');
                 if(event.target.hasAttribute('src')){
-                    previewDiv.children[0].setAttribute('src', srcImage);
-                    activeElement(event.target);
+                    setPreviewImage(event.target);
                 }
-                
             }
 
 
@@ -77,26 +70,25 @@
                     dataCtrl = event.target.getAttribute('data-ctrl'),
                     activeElementNextSibling = currentActiveElement.nextElementSibling,
                     activeElementPreviousSibling = currentActiveElement.previousElementSibling;
-                
+
                     if(dataCtrl == 'next' && activeElementNextSibling){
-                        var srcActiveElementNextSibling = activeElementNextSibling.getAttribute('src');
-                        activeElement(activeElementNextSibling);
-                        previewDiv.children[0].setAttribute('src', srcActiveElementNextSibling);
+                        setPreviewImage(activeElementNextSibling);
                     }else if(dataCtrl == 'prev' && activeElementPreviousSibling){
-                        var srcActiveElementPreviousSibling = activeElementPreviousSibling.getAttribute('src');
-                        activeElement(activeElementPreviousSibling);
-                        previewDiv.children[0].setAttribute('src', srcActiveElementPreviousSibling);
+                        setPreviewImage(activeElementPreviousSibling);
                     }
             }
 
+            function setPreviewImage (element) {
+                var currentActiveElement = divImages.querySelector('.active'),
+                    srcOfElement = element.getAttribute('src'),
+                    currentImage = '<img src=\'' + srcOfElement + '\'>';
 
-            function activeElement (element) {
-                    var currentActiveElement = divImages.querySelector('.active');
-                    currentActiveElement.classList.remove('active');
-                    element.classList.add('active');
-            }
+                if(currentActiveElement){currentActiveElement.classList.remove('active')};    
+                element.classList.add('active');
 
-
+                if(previewDiv.children[0]){previewDiv.removeChild(previewDiv.children[0])};
+                previewDiv.insertAdjacentHTML('afterBegin', currentImage);
+            }    
 
     </script>
 </body>
