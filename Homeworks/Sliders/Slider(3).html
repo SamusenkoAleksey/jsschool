@@ -53,18 +53,29 @@
             });
 
             
-            divImages.addEventListener('click', setTargetPreview);
-            buttonsBlock.addEventListener('click', setCurrentImage);
+            divImages.addEventListener('click', setPreviewByTarget);
+            buttonsBlock.addEventListener('click', setPreviewByButtons);
 
-            function setTargetPreview (event) {
+            function setPreviewImage (element) {
+                var currentActiveElement = divImages.querySelector('.active'),
+                    srcOfElement = element.getAttribute('src'),
+                    currentImage = '<img src=\'' + srcOfElement + '\'>';
+
+                if(currentActiveElement){currentActiveElement.classList.remove('active')};    
+                element.classList.add('active');
+
+                if(previewDiv.children[0]){previewDiv.removeChild(previewDiv.children[0])};
+                previewDiv.insertAdjacentHTML('afterBegin', currentImage);
+            } 
+
+            function setPreviewByTarget (event) {
                 if (!event) event = window.event;
                 if(event.target.hasAttribute('src')){
                     setPreviewImage(event.target);
                 }
             }
 
-
-            function setCurrentImage () {
+            function setPreviewByButtons () {
                 if (!event) event = window.event;
                 var currentActiveElement = divImages.querySelector('.active'),
                     dataCtrl = event.target.getAttribute('data-ctrl'),
@@ -77,18 +88,6 @@
                         setPreviewImage(activeElementPreviousSibling);
                     }
             }
-
-            function setPreviewImage (element) {
-                var currentActiveElement = divImages.querySelector('.active'),
-                    srcOfElement = element.getAttribute('src'),
-                    currentImage = '<img src=\'' + srcOfElement + '\'>';
-
-                if(currentActiveElement){currentActiveElement.classList.remove('active')};    
-                element.classList.add('active');
-
-                if(previewDiv.children[0]){previewDiv.removeChild(previewDiv.children[0])};
-                previewDiv.insertAdjacentHTML('afterBegin', currentImage);
-            }    
 
     </script>
 </body>
