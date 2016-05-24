@@ -23,6 +23,12 @@
         .active {
             border: 2px solid blue;
         }
+        #buttons {
+            margin: 100px 0px 70px 350px;
+        }
+        .padding_buttons {
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
@@ -36,8 +42,8 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/OpenEuphoria_mascot_200px.png">
         </div>
     <div id='buttons'>
-        <button id='prevous' data-ctrl='prev'>Previous</button>
-        <button id='next' data-ctrl='next'>Next</button>
+        <button id='prevous' data-ctrl='prev' class='padding_buttons'>Previous</button>
+        <button id='next' data-ctrl='next' class='padding_buttons'>Next</button>
     </div>
     
     <script>
@@ -75,8 +81,7 @@
                 }
             }
 
-
-            // !!! Доделать кнопки !
+            
             function setPreviewByButtons () {
                 if (!event) event = window.event;
                 var currentActiveElement = divImages.querySelector('.active'),
@@ -86,9 +91,13 @@
 
                     if(dataCtrl == 'next' && activeElementNextSibling){
                         setPreviewImage(activeElementNextSibling);
+                    }else if(dataCtrl == 'next' && activeElementNextSibling === null){
+                        setPreviewImage(divImages.firstElementChild);
                     }else if(dataCtrl == 'prev' && activeElementPreviousSibling){
                         setPreviewImage(activeElementPreviousSibling);
-                    }
+                    }else if(dataCtrl == 'prev' && activeElementPreviousSibling === null){
+                        setPreviewImage(divImages.lastElementChild);
+                    };
             }
 
     </script>
