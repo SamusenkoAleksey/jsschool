@@ -1,0 +1,172 @@
+	<!-- back to top button; (!DONE)--> 
+    <!-- drag; -->
+    <!-- создайте div, при клике на него, div начинает двигаться вправо, при клике на кнопку - останавливается, при попадании div к краю окна, он переходит к началу окна.(Partly Done) -->
+<!DOCTYPE html>
+<html >
+<head>
+   <meta charset="UTF-8">
+   <title>Homework_8_1</title>
+   <style type="text/css">
+   	*{
+   		margin: 0;
+   		padding: 0;
+   	}
+   	#button{
+   		position: fixed;
+   		margin: 100px 0 0 200px;
+   	}
+   	#div{
+   		width: 200px;
+   		height: 200px;
+   		background-color: rgb(214,79,0);
+   		/*margin: 300px 0 0 500px;*/
+   		position: absolute;
+   	}
+   </style>
+</head>
+<body>
+   <input type='button' value='Back to Top' id='button' data-drag='box'>
+   <div id='div'></div>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+
+
+   	<br>
+   	<br>
+   	<br>
+
+   	<br>
+
+
+   	<br>
+
+
+   	<br>
+   	<br>
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   	<br>
+   		<script type="text/javascript">
+   			var button = document.getElementById('button'),
+   				bodyWidth = document.body.clientWidth,
+   				div = document.getElementById('div'),
+   				divWidth = div.clientWidth,
+   				limit = bodyWidth - divWidth,
+   				divtPositionLeft = div.offsetLeft;
+
+   			
+
+   				
+   				
+   				 
+   			button.addEventListener('click', moveToTop);
+
+   			function moveToTop () {
+   				window.scrollTo(0, 0);
+   			}
+
+
+   			
+
+   			div.addEventListener('click', startMoving);
+
+   			function startMoving (event) {
+   				var event = event || window.event;
+            		setTimeout(function(){
+            			divtPositionLeft += 10;
+            			div.style.left = divtPositionLeft + 'px';
+            			if(divtPositionLeft >= limit) {
+            				div.style.left = 0;
+            				divtPositionLeft = div.offsetLeft;
+            				return;
+            			}
+            			startMoving();
+        						}, 1);
+
+   			}
+
+   			console.log(bodyWidth);
+
+			</script>
+</body>
+</html>
