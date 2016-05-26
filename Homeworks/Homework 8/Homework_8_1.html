@@ -1,6 +1,6 @@
 	<!-- back to top button; (!DONE)--> 
-    <!-- drag; -->
-    <!-- создайте div, при клике на него, div начинает двигаться вправо, при клике на кнопку - останавливается, при попадании div к краю окна, он переходит к началу окна.(Partly Done) -->
+    <!-- drag; (!DONE)--> 
+    <!-- создайте div, при клике на него, div начинает двигаться вправо, при клике на кнопку - останавливается, при попадании div к краю окна, он переходит к началу окна.(!DONE) -->
 <!DOCTYPE html>
 <html >
 <head>
@@ -13,13 +13,13 @@
    	}
    	#button{
    		position: fixed;
-   		margin: 100px 0 0 200px;
+   		margin: 300px 0 0 50px;
+         
    	}
    	#div{
    		width: 200px;
    		height: 200px;
    		background-color: rgb(214,79,0);
-   		/*margin: 300px 0 0 500px;*/
    		position: absolute;
    	}
    </style>
@@ -132,40 +132,42 @@
    				div = document.getElementById('div'),
    				divWidth = div.clientWidth,
    				limit = bodyWidth - divWidth,
-   				divtPositionLeft = div.offsetLeft;
-
-   			
-
-   				
-   				
+   				divtPositionLeft = div.offsetLeft,
+               differenceX,
+               differenceY;
    				 
    			button.addEventListener('click', moveToTop);
 
    			function moveToTop () {
    				window.scrollTo(0, 0);
    			}
-
-
    			
+            div.addEventListener('mousedown', dragStart);
 
-   			div.addEventListener('click', startMoving);
+            function dragStart (event) {
+               var event = event || window.event;
+               differenceX = event.clientX - div.offsetLeft;
+               differenceY = event.clientY - div.offsetTop;
+              console.log('start');
+              window.addEventListener('mousemove', dragTracking);
+            }
 
-   			function startMoving (event) {
-   				var event = event || window.event;
-            		setTimeout(function(){
-            			divtPositionLeft += 10;
-            			div.style.left = divtPositionLeft + 'px';
-            			if(divtPositionLeft >= limit) {
-            				div.style.left = 0;
-            				divtPositionLeft = div.offsetLeft;
-            				return;
-            			}
-            			startMoving();
-        						}, 1);
+            function dragTracking (event) {
+               var event = event || window.event;
+                  div.style.left = (event.clientX - differenceX) + 'px';
+                  div.style.top = (event.clientY - differenceY) + 'px';
+            }
 
-   			}
+            div.addEventListener('mouseup', dragFinish);
 
-   			console.log(bodyWidth);
+            function dragFinish (event) {
+               var event = event || window.event;
+              
+               window.removeEventListener('mousemove', dragTracking);
+           
+            }
+            
+
 
 			</script>
 </body>
