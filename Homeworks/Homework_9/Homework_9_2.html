@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Homework_9_2</title>
+  <style type="text/css">
+   	
+  </style>
+</head>
+<body>
+	<script type="text/javascript">
+		function Man () {
+			this.walk = function () {
+				console.log(' is walking');
+			};
+			this.eat = function () {
+				console.log(' is eating');
+			},
+			this.drink = function () {
+				console.log(' is drinking');
+			}
+		}
+
+		function Soldier () {
+			this.shoot = function () {
+				console.log(' is shooting');
+			};
+		}
+
+		function Doctor () {
+			this.cure = function () {
+				console.log(' is curing');
+			};
+		}
+
+		var newMan = new Man();
+			
+		Doctor.prototype = newMan;
+		Soldier.prototype = newMan;
+		
+		var newDoctor = new Doctor();	
+		var newSoldier = new Soldier();
+
+
+		function Dentist () {
+			this.cure = function () {
+            document.write("i can only cure your teeth" + "<br />");
+        };
+		}
+
+		function Surgeon () {
+			this.cure = function () {
+            document.write("i can only do the surgery" + "<br />");
+        };
+		}		
+
+		var newDentist = new Dentist();
+    	var newSurgeon = new Surgeon();
+
+    	// Dentist.prototype = newDoctor;
+    	// Surgeon.prototype = newSurgeon;
+
+	</script>
+</body>
+</html>
