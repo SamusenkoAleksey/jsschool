@@ -30,19 +30,31 @@
         .padding_buttons {
             padding: 15px;
         }
+        .view-port{
+            overflow: hidden;
+            height: 200px;
+        }
+        #images{
+            font-size: 0;
+        }
     </style>
 </head>
 <body>
         <div id='preview'>
                 
         </div>
-        <div id='images'>
-            <img src="http://vignette3.wikia.nocookie.net/houtian/images/d/db/200px-FireNationEmblem.png/revision/latest?cb=20100507202424">
-            <img src="http://vignette4.wikia.nocookie.net/simpsons/images/0/01/200px-Langdon_Alger.png/revision/latest?cb=20120815160236">
-            <img src="http://vignette1.wikia.nocookie.net/simpsons/images/2/28/200px-Orville_Simpson.png/revision/latest?cb=20120325155243">
-            <img src="http://vignette4.wikia.nocookie.net/simpsons/images/d/db/200px-Chuck_Muntz.png/revision/latest?cb=20110929163657">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/OpenEuphoria_mascot_200px.png">
+        <div class='view-port'>
+            <div id='images'>
+                <img src="http://vignette3.wikia.nocookie.net/houtian/images/d/db/200px-FireNationEmblem.png/revision/latest?cb=20100507202424">
+                <img src="http://vignette4.wikia.nocookie.net/allmafia/images/5/5b/200px-Full_Star_Yellow.svg.png/revision/latest?cb=20130329054951&path-prefix=ru">
+                <img src="http://vignette1.wikia.nocookie.net/simpsons/images/2/28/200px-Orville_Simpson.png/revision/latest?cb=20120325155243">
+                <img src="http://vignette4.wikia.nocookie.net/simpsons/images/0/01/200px-Langdon_Alger.png/revision/latest?cb=20120815160236">
+                <img src="http://vignette1.wikia.nocookie.net/simpsons/images/2/28/200px-Orville_Simpson.png/revision/latest?cb=20120325155243">
+                <img src="http://vignette4.wikia.nocookie.net/simpsons/images/d/db/200px-Chuck_Muntz.png/revision/latest?cb=20110929163657">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/OpenEuphoria_mascot_200px.png">
+            </div>
         </div>
+        
     <div id='buttons'>
         <button id='prevous' data-ctrl='prev' class='padding_buttons'>Previous</button>
         <button id='next' data-ctrl='next' class='padding_buttons'>Next</button>
@@ -52,17 +64,25 @@
             var divImages = document.getElementById('images'),
                 divImagesChildren = divImages.children,
                 previewDiv = document.getElementById('preview'),
-                buttonsBlock = document.getElementById('buttons');
+                buttonsBlock = document.getElementById('buttons'),
+                viewBlock = document.querySelector('.view-port'),
+                viewPortWidth;
             
 
-            window.addEventListener("DOMContentLoaded", function(event) {
+            window.addEventListener("load", function(event) {
                 var firstElemnt = divImages.firstElementChild;
                 setPreviewImage(firstElemnt);
+
+
+                var first = divImages.firstElementChild.clientWidth;
+                viewPortWidth = first * 4;
+                viewBlock.style.width = viewPortWidth + 'px';
             });
 
             
             divImages.addEventListener('click', setPreviewByTarget);
             buttonsBlock.addEventListener('click', setPreviewByButtons);
+            buttonsBlock.addEventListener('click', moveViewPort);
 
             function setPreviewImage (element) {
                 var currentActiveElement = divImages.querySelector('.active'),
@@ -102,6 +122,22 @@
                     };
             }
 
+            var length = 4;
+            for (var i = 0;i <4; i++ ){
+                divImagesChildren[i].classList.add('visible');
+            }
+
+            function moveViewPort () {
+                var event = event || window.event,
+                    currentActiveElement = divImages.querySelector('.active'),
+                    dataCtrl = event.target.getAttribute(dataCtrl);
+                    if(dataCtrl == 'next' && currentActiveElement.nextElementSibling.classList.contains('visible')){
+                        console.log('work');
+                    }
+                
+            }
+             
+            
     </script>
 </body>
 </html>
