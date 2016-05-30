@@ -15,7 +15,7 @@
     		vertical-align: middle;
     		vertical-align: middle;
     	}
-        #preview{
+        #preview-div{
             margin-left: 400px;
             width: 300px;
             height: 300px;
@@ -33,38 +33,117 @@
     </style>
 </head>
 <body>
-        <div id='preview'>
-                
-        </div>
-        <div id='images'>
-            <img src="http://vignette4.wikia.nocookie.net/simpsons/images/0/01/200px-Langdon_Alger.png/revision/latest?cb=20120815160236">
-            <img src="http://vignette1.wikia.nocookie.net/simpsons/images/2/28/200px-Orville_Simpson.png/revision/latest?cb=20120325155243">
-            <img src="http://vignette4.wikia.nocookie.net/simpsons/images/d/db/200px-Chuck_Muntz.png/revision/latest?cb=20110929163657">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/OpenEuphoria_mascot_200px.png">
-        </div>
+
+            <div id='images'>
+                <img src="http://vignette4.wikia.nocookie.net/simpsons/images/0/01/200px-Langdon_Alger.png/revision/latest?cb=20120815160236">
+                <img src="http://vignette1.wikia.nocookie.net/simpsons/images/2/28/200px-Orville_Simpson.png/revision/latest?cb=20120325155243">
+                <img src="http://vignette4.wikia.nocookie.net/simpsons/images/d/db/200px-Chuck_Muntz.png/revision/latest?cb=20110929163657">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/OpenEuphoria_mascot_200px.png">
+            </div>
+
+
+            
+       
     <div id='buttons'>
         <button id='prevous' data-ctrl='prev' class='padding_buttons'>Previous</button>
         <button id='next' data-ctrl='next' class='padding_buttons'>Next</button>
     </div>
     
     <script>
-            function Slider (divWithImages) {
-                this.divWithImages = divWithImages;
-                this.setActiveImg = function (elem) {
-                    var currActiveElement = document.querySelector('.active');
-                    if(currActiveElement){currActiveElement.classList.remove('active')};  
-                    elem.classList.add('active');
-                };
-                this.callFoo = function () {
-                    this.setActiveImg(divWithImages.children[0]);
-                }
+            function Slider (div) {
+                if(!div){return};
+                this.div = div;
+                this.firstDivChild = this.div.firstElementChild;
+                this.buttons = document.getElementById('buttons');
+                this.appendElement();
+                this.previewDiv = document.getElementById('preview-div');
+                this.setPreviewImageByIcons(this.div);
+                this.setPreviewImageByButtons(this.buttons);
+                this.setFirstImgByDefault();
+
+                
+                              
             }
 
-            
+            Slider.prototype.appendElement = function (){
+                var previewDiv = '<div id=\'preview-div\'></div>';
+                this.div.insertAdjacentHTML('beforeBegin', previewDiv);
+            }
+
+            Slider.prototype.setFirstImgByDefault = function () {
+                var that = this;
+                window.addEventListener("DOMContentLoaded", function(event) {
+                that.setPreviewImage(that.firstDivChild);
+            });
+            }
+
+            Slider.prototype.setPreviewImageByIcons = function (div) {
+                div.addEventListener('click', choseImg);
+                var that = this;
+                function choseImg (event) {
+                    var event = event || window.event;
+                    if(event.target.hasAttribute('src')) {
+                        that.setPreviewImage(event.target);
+                    }
+                }
+
+            }
+
+            Slider.prototype.setPreviewImage = function (element) {
+                if(this.div.querySelector('.active') != null){
+                    this.div.querySelector('.active').classList.remove('active');
+                };
+                element.classList.add('active');
+                var elementSrc = element.getAttribute('src'),
+                    imgElemet = '<img src=\'' + elementSrc + '\'>';
+                if(this.previewDiv.firstElementChild){
+                    this.previewDiv.removeChild(this.previewDiv.firstElementChild)
+                };
+                this.previewDiv.insertAdjacentHTML('afterBegin', imgElemet);      
+                
+            }
+
+            Slider.prototype.setPreviewImageByButtons = function (buttonBlock) {
+                buttonBlock.addEventListener('click', changeImg);
+                var that = this;
+                function changeImg (event) {
+                    var event = event || window.event,
+                        activeElement = that.div.querySelector('.active'),
+                        dataCtrl = event.target.getAttribute('data-ctrl'),
+                        activeElementNextSibling = activeElement.nextElementSibling,
+                        activeElementPreviousSibling = activeElement.previousElementSibling;
+
+                    
+                    if(dataCtrl == 'next' && activeElementNextSibling){
+                        that.setPreviewImage(activeElementNextSibling);
+                    }else if(dataCtrl == 'next' && activeElementNextSibling === null){
+                        that.setPreviewImage(that.div.firstElementChild);
+                    }else if(dataCtrl == 'prev' && activeElementPreviousSibling){
+                        that.setPreviewImage(activeElementPreviousSibling);
+                    }else if(dataCtrl == 'prev' && activeElementPreviousSibling === null){
+                        that.setPreviewImage(that.div.lastElementChild);
+                    };
+                    
+
+                }
+            }
+       
+
+
+
+
+
+
+
+
+
+
+
+
 
             var div = document.getElementById('images');
             var newSlider = new Slider(div);
-            newSlider.callFoo();
+            
 
 
 
