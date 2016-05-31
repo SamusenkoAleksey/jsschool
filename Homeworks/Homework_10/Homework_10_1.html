@@ -1,0 +1,92 @@
+    <!-- Создайте страницу которая запрашивает имя пользователя, если пользователь вводит "Admin" либо "admin" он попадает на страницу, которая оповещает его о том что " Пользоваетль Admin(не статическая строка, а данные что ввел пользователь) вошел в систему" а рядом разместите кнопку "Выход" которая вернет пользователя к модальному окну ввода логина. Реализуйте код как для куки так и для localstorage. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homework_10_1</title>
+    
+</head>
+<body>
+<script>
+		// Cookie код
+
+
+		// var login = findCookieValue('login');
+
+		// if(login == 'Admin' || login == 'admin'){
+		// 	loggedUser();
+		// }else{
+		// 	askLogin();
+		// }
+
+  //   	function askLogin () {
+  //   		var answer = prompt('Ведите имя пользователя');
+  //   		var expiresDate = '15/02/2015 00:00:00';
+  //   		if(answer == 'Admin' || answer == 'admin'){
+  //   			setCookie(answer, expiresDate);
+  //   			location.reload();
+  //   		}else{
+  //   			askLogin();
+  //   		}
+  //   	}
+
+
+  //   	function setCookie (login, expiresDate) {
+  //   		var cookieLogin =  'login=' + login + ';';
+  //   		var cookieExpiresDate = 'expires=' + expiresDate + ';';
+  //   		document.cookie = cookieLogin + cookieExpiresDate;
+  //   	}
+    	
+  //   	function loggedUser () {
+  //   		var clearCookie = '<input type=\'button\' value=\'Выйти\'>';
+  //   		var span = '<span>Вы вошли в систему как ' + login;
+  //   		document.body.insertAdjacentHTML('afterBegin',clearCookie);
+  //   		document.body.insertAdjacentHTML('afterBegin',span);
+  //   		var button = document.querySelector('input');
+  //   		button.addEventListener('click', deleteCookie);
+
+  //   		function deleteCookie () {
+  //   			document.cookie = 'login=' + login + '; max-age=0';
+  //   			location.reload();
+  //   		}
+  //   	}
+
+  //   	function findCookieValue(cookieName) {
+  //           var allcookies = document.cookie; 
+  //           var pos = allcookies.indexOf(cookieName + "="); 
+
+  //           // Если cookie с указанным именем найден, извлечь его значения.
+  //           if (pos != -1) {
+  //               var start = pos + cookieName.length + 1;
+  //               var end = allcookies.indexOf(";", start); 
+
+  //               if (end == -1) {
+  //                   end = allcookies.length;
+  //               }
+
+  //               var value = allcookies.substring(start, end);
+
+  //               return decodeURIComponent(value);
+  //           }
+  //       };
+
+    	function Login () {
+    		this.answer = prompt('Введите имя пользователя');
+    		this.askLogin(this.answer);
+
+    	}
+
+    	Login.prototype.askLogin = function (answer) {
+    		if(answer == 'admin' || answer == 'Admin'){
+    			console.log('work');
+    		}else{
+    			this.askLogin();
+    		}
+    	}
+
+
+    	var startLogin = new Login;
+
+    </script>
+</body>
+</html>
