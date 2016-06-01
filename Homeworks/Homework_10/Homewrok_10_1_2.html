@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Homework_10_1_1</title>
+    <title>Homework_10_1_2</title>
     
 </head>
 <body>
@@ -10,14 +10,51 @@
     <script type="text/javascript">
         
 
-        window.addEventListener('load', login);
+        window.addEventListener('load', ifUserIsLoggedIn);
 
-        function login () {
-            
+        var login = window.sessionStorage.getItem('login');
+
+
+        function ifUserIsLoggedIn () {
+            if(login == 'Admin' || login == 'admin'){
+                showLoginPage();
+            }else{
+                askLogin();
+            };
+        }
+        
+
+        function askLogin () {
+            var answer = prompt('Введите имя пользователя');
+            if(answer == 'admin' || answer == 'Admin'){
+                setSessionStorage(answer);
+                location.reload();
+            }else{
+                location.reload();
+            }
         }
 
+        function setSessionStorage (key) {
+            window.sessionStorage.setItem('login', key);
+        }
 
+        function showLoginPage () {
+            var body = document.querySelector('body'),
+                button = '<input type=\'button\' value=\'Выйти\'>',
+                span = '<span>Вы вошли под именем ' + login + '</span>';
 
+            body.insertAdjacentHTML('beforeBegin', button);
+            body.insertAdjacentHTML('beforeBegin', span);
+            
+            var buttonHtml = document.querySelector('input');
+
+            buttonHtml.addEventListener('click', clearKeyLogin);
+
+            function clearKeyLogin () {
+                window.sessionStorage.removeItem('login');
+                location.reload();
+            }
+        }
 
     </script>
     
