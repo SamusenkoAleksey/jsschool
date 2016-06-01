@@ -12,7 +12,7 @@
 
         window.addEventListener('load', ifUserIsLoggedIn);
 
-        var login = window.sessionStorage.getItem('login');
+        var login = window.localStorage.getItem('login');
 
 
         function ifUserIsLoggedIn () {
@@ -27,15 +27,15 @@
         function askLogin () {
             var answer = prompt('Введите имя пользователя');
             if(answer == 'admin' || answer == 'Admin'){
-                setSessionStorage(answer);
+                setLocalStorage(answer);
                 location.reload();
             }else{
                 location.reload();
             }
         }
 
-        function setSessionStorage (key) {
-            window.sessionStorage.setItem('login', key);
+        function setLocalStorage (key) {
+            window.localStorage.setItem('login', key);
         }
 
         function showLoginPage () {
@@ -51,7 +51,7 @@
             buttonHtml.addEventListener('click', clearKeyLogin);
 
             function clearKeyLogin () {
-                window.sessionStorage.removeItem('login');
+                window.localStorage.removeItem('login');
                 location.reload();
             }
         }
