@@ -7,11 +7,61 @@
 </head>
 <body>
 
-    <input type="file" name="file" multiple>
+    <input type="file" name="file">
+    <img id='output'>
     
     <script type="text/javascript">
+
+    var button = document.querySelector('input');
+
+	button.addEventListener('change', readFile);
         
-        
+        function readFile (event){
+        	var input = event.target;
+
+
+			var reader = new FileReader(),
+			files = event.target.files[0];
+			console.log(files);
+			
+			reader.onload = function () {
+				var dataURL = reader.result,
+					output = document.getElementById('output');
+
+					output.src = dataURL;
+
+				console.log(dataURL);
+			}
+			// reader.onload = (function(theFile) {
+			// 	return function(e) {
+
+			// 	e.target.result
+
+			// 		};
+
+			// })(files);
+
+			reader.readAsDataURL(input.files[0]);
+
+		}
+
+	// var button = document.querySelector('input');
+
+	// button.addEventListener('change', openFile);
+
+ //  var openFile = function(event) {
+ //    var input = event.target;
+
+ //    var reader = new FileReader();
+ //    reader.onload = function(){
+ //      var dataURL = reader.result;
+ //      console.log(dataURL);
+ //      var output = document.getElementById('output');
+ //      output.src = dataURL;
+ //    };
+ //    reader.readAsDataURL(input.files[0]);
+ //  };
+</script>
 
     </script>
     
