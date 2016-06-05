@@ -31,7 +31,9 @@
         }
     };
 
-   
+    function getTheKey (key) {
+        console.log(key);
+    }
 
     function findTheKey (obj, key, callback) {
         for (var i in obj){
@@ -39,15 +41,13 @@
                 callback(obj[key]);
             }else if(typeof obj[i] == 'object'){
                 findTheKey(obj[i], key, callback);
-            }
-        }
+            };
+        };
     }
 
     findTheKey(simpleObj,'anotherObj', getTheKey);
     
-    function getTheKey (key) {
-        console.log(key);
-    }
+    
     
     </script>
 </body>
