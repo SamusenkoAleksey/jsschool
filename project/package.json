@@ -1,0 +1,24 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "real project in javascript courses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamusenkoAleksey/jsschool/tree/master/project/"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "courses",
+    "npm"
+  ],
+  "author": "Aleksey Samusenko",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
+}
