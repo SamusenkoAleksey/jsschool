@@ -58,5 +58,3 @@ Helper.prototype.getMonth = function (language, month) {
 }
 
 var date = new Helper();
-
-date.returnDate('2016-06-05 12:33:23', 'uk');
