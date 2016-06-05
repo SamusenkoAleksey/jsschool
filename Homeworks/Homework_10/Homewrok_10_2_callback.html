@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homework_10_2</title>
+    
+</head>
+<body>
+    <script type="text/javascript">
+
+
+    var simpleObj = {
+        first: 'one',
+        second: 'two',
+        third: 'three',
+        fourth: {
+            fourthFirst: 'one_four',
+            test: {
+                one: 1,
+                two: 2,
+                three: {
+                    word: 'test',
+                    word2: 'test2',
+                    arr: [1, 2, 3,],
+                    anotherObj: {
+                        str: "string"
+                    }
+                }
+            },
+            fourthSecond: 'two_four'
+        }
+    };
+
+   
+
+    function findTheKey (obj, key, callback) {
+        for (var i in obj){
+            if(i == key){
+                callback(obj[key]);
+            }else if(typeof obj[i] == 'object'){
+                findTheKey(obj[i], key, callback);
+            }
+        }
+    }
+
+    findTheKey(simpleObj,'anotherObj', getTheKey);
+    
+    function getTheKey (key) {
+        console.log(key);
+    }
+    
+    </script>
+</body>
+</html>
