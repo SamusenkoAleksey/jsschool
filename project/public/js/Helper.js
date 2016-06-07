@@ -52,7 +52,7 @@ Helper.prototype.getMonth = function (language, month) {
 			11: "Грудня"
 	    }
 	};
-
+	
 	return mounthObject[language][month];
 
 }
