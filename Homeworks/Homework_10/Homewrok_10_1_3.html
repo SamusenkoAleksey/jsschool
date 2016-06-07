@@ -22,7 +22,7 @@
 
 			var reader = new FileReader(),
 			files = event.target.files[0];
-			console.log(files);
+			//console.log(files);
 			
 			reader.onload = function () {
 				var dataURL = reader.result,
@@ -32,36 +32,10 @@
 
 				console.log(dataURL);
 			}
-			// reader.onload = (function(theFile) {
-			// 	return function(e) {
-				
-
-			// 	e.target.result
-
-			// 		};
-
-			// })(files);
 
 			reader.readAsDataURL(files);
 
 		}
-
-	// var button = document.querySelector('input');
-
-	// button.addEventListener('change', openFile);
-
- //  var openFile = function(event) {
- //    var input = event.target;
-
- //    var reader = new FileReader();
- //    reader.onload = function(){
- //      var dataURL = reader.result;
- //      console.log(dataURL);
- //      var output = document.getElementById('output');
- //      output.src = dataURL;
- //    };
- //    reader.readAsDataURL(input.files[0]);
- //  };
 </script>
 
     </script>
