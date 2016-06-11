@@ -55,6 +55,5 @@ Helper.prototype.getMonth = function (language, month) {
 	
 	return mounthObject[language][month];
 
-}
+};
 
-var date = new Helper();
