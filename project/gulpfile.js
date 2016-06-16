@@ -10,17 +10,18 @@ var gulp = require('gulp'),
 
 
 gulp.task('js', function () {
-    return gulp.src(['./public/js/Helper.js', './public/js/App.js', './public/js/_components/Iframe.js'])
+    return gulp.src(['./public/js/Helper.js', './public/js/App.js', './public/js/_components/Iframe.js', './public/js/_components/Weather.js'])
         .pipe(concat('bundle_js.js'))
-        .pipe(jsmin())
+        //.pipe(jsmin())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./build/js/'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch("./public/js/_components/Iframe.js", ['js']);
     gulp.watch("./public/js/App.js", ['js']);
     gulp.watch("./public/js/Helper.js", ['js']);
+    gulp.watch("./public/js/_components/Iframe.js", ['js']);
+    gulp.watch("./public/js/_components/Weather.js", ['js']);
 });
 
 gulp.task('default', ['js', 'watch']);

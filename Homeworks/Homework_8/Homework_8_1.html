@@ -167,21 +167,21 @@
            
             }
             
-            div.addEventListener('click', startMoving);
+           //  div.addEventListener('click', startMoving);
  
-           function startMoving (event) {
-              var event = event || window.event;
-                 setTimeout(function(){
-                    divtPositionLeft += 10;
-                    div.style.left = divtPositionLeft + 'px';
-                    if(divtPositionLeft >= limit) {
-                       div.style.left = 0;
-                       divtPositionLeft = div.offsetLeft;
-                       return;
-                    }
-                    startMoving();
-                          }, 1);
-            }
+           // function startMoving (event) {
+           //    var event = event || window.event;
+           //       setTimeout(function(){
+           //          divtPositionLeft += 10;
+           //          div.style.left = divtPositionLeft + 'px';
+           //          if(divtPositionLeft >= limit) {
+           //             div.style.left = 0;
+           //             divtPositionLeft = div.offsetLeft;
+           //             return;
+           //          }
+           //          startMoving();
+           //                }, 1);
+           //  }
 
 			</script>
 </body>
