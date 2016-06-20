@@ -57,77 +57,35 @@ Helper.prototype.getMonth = function (language, month) {
 
 };
 
-// Helper.prototype.Ajax = function (url, key) {
-// 	if(XMLHttpRequest == 'undefined'){
-// 		return alert('Your browser do not support Ajax!');
-// 	}
-	
-// 	function getTheKey (key) {
-//          console.log(key);
-//     }
 
-//     console.log('test');
-
-//     function findTheKey (obj, key, callback) {
-//         for (var i in obj){
-//             if(i == key){
-//                 callback(obj[key]);
-//             }else if(typeof obj[i] == 'object'){
-//                 findTheKey(obj[i], key, callback);
-//             };
-//         };
-//     }
-
-// 	var xhr = new XMLHttpRequest();
-// 	xhr.open('GET', url, true);
-// 	xhr.onreadystatechange = function () {
-// 		if(xhr.readyState == 4 && xhr.status == 200){
-// 			var str = xhr.responseText,
-// 				strToObj = JSON.parse(str);
-
-// 			findTheKey(strToObj, key, getTheKey);
-// 		};
-// 	}
-// 	xhr.send();
-// }
-
-
-Helper.prototype.Ajax = function (url, key) {
+Helper.prototype.Ajax = function (url, callback, self) {
 	if(XMLHttpRequest == 'undefined'){
 		return alert('Your browser do not support Ajax!');
 	};
 
-	var receivedObj = {},
-		xhr = new XMLHttpRequest();
-		
+	var	xhr = new XMLHttpRequest();
+
 	xhr.open('GET', url, true);
 	xhr.onreadystatechange = function () {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			var str = xhr.responseText,
 				receivedObj = JSON.parse(str);
+				callback(receivedObj, self);
 		};
 	}
 	xhr.send();
-	
-	function getTheKey (key) {
-         console.log(key);
-    }
 
-    console.log('test');
-
-    function findTheKey (obj, key, callback) {
-        for (var i in obj){
-            if(i == key){
-                callback(obj[key]);
-            }else if(typeof obj[i] == 'object'){
-                findTheKey(obj[i], key, callback);
-            };
-        };
-    }
-
-	
 };
 
 
+Helper.prototype.findTheKey = function (obj, key, callback, self) {
+	for (var i in obj){
+        if(i == key){
+                callback(obj[key], self);
+            }else if(typeof obj[i] == 'object'){
+                self.findTheKey(obj[i], key, callback, self);
+         };
+    };
+}
 
 

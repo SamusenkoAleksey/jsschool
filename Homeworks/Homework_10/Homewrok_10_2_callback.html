@@ -31,8 +31,10 @@
         }
     };
 
+    
+
     function getTheKey (key) {
-        console.log(key);
+        return key;
     }
 
     function findTheKey (obj, key, callback) {
@@ -43,6 +45,7 @@
                 findTheKey(obj[i], key, callback);
             };
         };
+
     }
 
     findTheKey(simpleObj,'anotherObj', getTheKey);
