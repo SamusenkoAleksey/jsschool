@@ -1,9 +1,12 @@
-function CategorySingle () {
-    this.inputElement = document.getElementById('val-count-and-id');
-    this.dataId = this.inputElement.getAttribute('data-id');
-    this.dataOffset = this.inputElement.getAttribute('data-count');
-    this.newsLoader();
+function CategorySingle (input) {
+    if(input === null){
+        return;
+    }
+    this.input = input;
+    this.dataId = this.input.getAttribute('data-id');
+    this.dataOffset = this.input.getAttribute('data-count');
     this.statusLoad = false;
+    this.newsLoader();
 }
 
 CategorySingle.prototype = Object.create(App.prototype);
@@ -11,7 +14,10 @@ CategorySingle.prototype.constructor = CategorySingle;
 
 
 CategorySingle.prototype.newsLoader = function () {
-    var that = this;
+    var that = this,
+        buttons = document.querySelector('.val-menu-list');
+
+
     window.addEventListener('load', startLoading);
 
     function startLoading () {
@@ -21,12 +27,13 @@ CategorySingle.prototype.newsLoader = function () {
     window.addEventListener('scroll', continuteLoading);
 
     function continuteLoading () {
-
+    console.log('wwa');
         var totalPageHeight = document.body.clientHeight,
             tippingPoint = totalPageHeight - 100,
             currentScrollingY = window.scrollY + window.innerHeight;
 
         if(currentScrollingY > tippingPoint  && that.statusLoad === false) {
+            console.log('wwaasdf');
             that.Ajax('http://user110.js.uitclassroom.com/site/GetCategoryByIdXhrOrNotId?id=' + that.dataId + '&offset=' + that.dataOffset, that.getValue, that);
 
         }
@@ -66,5 +73,7 @@ CategorySingle.prototype.createHtmlElement = function (lang, arr, self) {
 
     return string;
 }
-ß
-new CategorySingle();
+
+
+
+new CategorySingle(document.getElementById('val-count-and-id'));
