@@ -27,13 +27,11 @@ CategorySingle.prototype.newsLoader = function () {
     window.addEventListener('scroll', continuteLoading);
 
     function continuteLoading () {
-    console.log('wwa');
         var totalPageHeight = document.body.clientHeight,
             tippingPoint = totalPageHeight - 100,
             currentScrollingY = window.scrollY + window.innerHeight;
 
         if(currentScrollingY > tippingPoint  && that.statusLoad === false) {
-            console.log('wwaasdf');
             that.Ajax('http://user110.js.uitclassroom.com/site/GetCategoryByIdXhrOrNotId?id=' + that.dataId + '&offset=' + that.dataOffset, that.getValue, that);
 
         }
@@ -73,7 +71,5 @@ CategorySingle.prototype.createHtmlElement = function (lang, arr, self) {
 
     return string;
 }
-
-
 
 new CategorySingle(document.getElementById('val-count-and-id'));
