@@ -66,6 +66,4 @@ Slider.prototype.clickEvent = function () {
 	}
 }
 
-new Slider (document.querySelector('.val-slider-general-news'));
-
 

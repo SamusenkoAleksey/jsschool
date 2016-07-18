@@ -1,7 +1,7 @@
 function Weather() {
 	this.getData('https://query.yahooapis.com/v1/public/yql?q=select %20item%20from%20weather.forecast%20where%20woeid%3D918233%20and%20u %3D%22c%22&format=json&l=ru');
 }
-  
+
 Weather.prototype = Object.create(App.prototype);
 Weather.prototype.constructor = Weather;
 
@@ -21,7 +21,7 @@ Weather.prototype.getResult = function(result, self){
 
 Weather.prototype.insertWetherHTML = function (obj ,elementToInsert) {
 	var div = '<div class="drop-weather-button">'
-					+ '<div class="outer-today-ico">' 
+					+ '<div class="outer-today-ico">'
 							+ '<span class="icons-for-c-min icon-weather-min-' + obj.condition.code + '"></span>'
 							+ '<i class="today-weather">' + obj.condition.temp + ' С°</i>'
 					+ '</div>'
@@ -37,7 +37,7 @@ Weather.prototype.insertWetherHTML = function (obj ,elementToInsert) {
 							+ '</div>'
 							+ '<div class="weather-detail">'
 								+ '<h4 class="weather-heading">'
-									+ '<span class="temp-now">' + obj.condition.temp + ' С° </span>'  
+									+ '<span class="temp-now">' + obj.condition.temp + ' С° </span>'
 									+ '<span class="phrase">Температура зараз</span>'
 								+ '</h4>'
 								+ '<span class="temperature high-temperature">' + obj.forecast[0].high + ' С° </span>'
@@ -49,13 +49,13 @@ Weather.prototype.insertWetherHTML = function (obj ,elementToInsert) {
 						+'<div class="section-this-week">'
 							+ '<h5 class="section-heading">Тиждень</h5>'
 								+ '<ul class="item-list-temperature">'
-									+ this.daysForecast(obj.forecast) 
+									+ this.daysForecast(obj.forecast)
 								+ '</ul>'
 						+ '</div>'
-					+ '</div>' 
+					+ '</div>'
 				+ '</div>';
 
-	elementToInsert.insertAdjacentHTML('afterBegin', div);			
+	elementToInsert.insertAdjacentHTML('afterBegin', div);
 }
 
 
@@ -66,7 +66,10 @@ Weather.prototype.returnDescription = function (descriptionCode) {
 		2: 'Ураган',
 		3: 'Сильні грози',
 		4: 'Грози',
-		5: 'Змішаний дощ зi снігом', 6: 'Змішаний дощ зi снігом', 7: 'Змішаний дощ зi снігом', 8: 'Паморозь',
+		5: 'Змішаний дощ зi снігом',
+		6: 'Змішаний дощ зi снігом',
+		7: 'Змішаний дощ зi снігом',
+		8: 'Паморозь',
 		9: 'Мряка',
 		10: 'Град',
 		11: 'Зливи',
@@ -114,18 +117,18 @@ Weather.prototype.returnDescription = function (descriptionCode) {
 Weather.prototype.returnDay = function (dayCode){
 	var days = {
 		Mon: 'Понедiлок',
-		Tue: 'Вiвторок', 
-		Wed: 'Середа', 
-		Thu: 'Четвер', 
-		Fri: 'П`ятниця', 
-		Sat: 'Субота', 
+		Tue: 'Вiвторок',
+		Wed: 'Середа',
+		Thu: 'Четвер',
+		Fri: 'П`ятниця',
+		Sat: 'Субота',
 		Sun: 'Недiл;я'
 	};
 	return days[dayCode];
 }
 
 Weather.prototype.daysForecast = function (arrayOfDays){
-		
+
 		var listOfDays = '';
 
 		for (var i = 1; i <= 4 ; i ++ ){
@@ -134,13 +137,11 @@ Weather.prototype.daysForecast = function (arrayOfDays){
 					+ '<span class="icons-for-c icon-weather-' + arrayOfDays[i].code +'"></span>'
 					+ '<span class="day">' + this.returnDay(arrayOfDays[i].day) + '</span>'
 					+ '<span class="temperature-days high-temperature">' + arrayOfDays[i].high + 'С°</span>'
-					
+
 					+ '-'
 					+ '<span class="temperature-days low-temperature">' + arrayOfDays[i].low + 'С°</span>'
 				+ '</li>';
 		}
-		
+
 		return listOfDays;
 }
-
-new Weather();

@@ -1,5 +1,3 @@
-
-
 function CreateIframes (div) {
     if(!div){return};
     this.div = div;
@@ -22,12 +20,10 @@ CreateIframes.prototype.getIframes = function () {
                 '</div>';     
     };  
     return str;
+
 }
 
 CreateIframes.prototype.appendIframes = function () {
     this.div.insertAdjacentHTML('afterBegin', this.getIframes());
 }
 
-var divBloc = document.querySelector('.val-iframe-streams');
-
-new CreateIframes (divBloc);

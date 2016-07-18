@@ -1,7 +1,6 @@
 function Currency () {
     this.listOfNeededBanks = ["ПриватБанк", "ПУМБ", "Укрсоцбанк", "Індустріалбанк"];
     this.getData('http://user110.js.uitclassroom.com/site/tryCurrency');
-
 }
 
 Currency.prototype = Object.create(App.prototype);
@@ -37,9 +36,7 @@ Currency.prototype.getlistOfAllBanks = function (result, self) {
         };
         nameOfBank = result[i].bankName;
     };
-
-    //return arr;
-    console.log(arr);
+    
     self.createHtmlElement(arr);
 }
 
@@ -108,9 +105,6 @@ Currency.prototype.createCurrentValue = function (array) {
                             + '</td>'
                         + '</tr>';
     };
-
     return stringOfBanks;
 }
 
-
-new Currency();

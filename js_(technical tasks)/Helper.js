@@ -1,8 +1,7 @@
 function Helper () {
 
 };
-
-
+ 
 Helper.prototype.currentDate = function () {
 	var today = new Date(),
 		todayYearMonthDay = (new Date(today.getFullYear(), today.getMonth(), today.getDate())).valueOf();

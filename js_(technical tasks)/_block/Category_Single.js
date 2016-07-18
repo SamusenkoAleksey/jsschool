@@ -4,8 +4,8 @@ function CategorySingle (input) {
     }
     this.input = input;
     this.dataId = this.input.getAttribute('data-id');
-    this.dataOffset = this.input.getAttribute('data-count');
-    this.statusLoad = false;
+    this.dataOffset = parseInt(this.input.getAttribute('data-count'));
+    this.statusLoad = true;
     this.newsLoader();
 }
 
@@ -14,28 +14,24 @@ CategorySingle.prototype.constructor = CategorySingle;
 
 
 CategorySingle.prototype.newsLoader = function () {
-    var that = this,
-        buttons = document.querySelector('.val-menu-list');
 
+    this.sendAjax();
+    window.addEventListener('scroll', this.scrollingLoading.bind(this));
 
-    window.addEventListener('load', startLoading);
+}
 
-    function startLoading () {
-        that.Ajax('http://user110.js.uitclassroom.com/site/GetCategoryByIdXhrOrNotId?id=' + that.dataId + '&offset=' + that.dataOffset, that.getValue, that);
+CategorySingle.prototype.scrollingLoading = function () {
+    var tippingPoint = document.body.clientHeight - document.body.scrollTop;
+
+    if (tippingPoint < 1500 && this.statusLoad === true){
+        this.sendAjax();
     }
+}
 
-    window.addEventListener('scroll', continuteLoading);
-
-    function continuteLoading () {
-        var totalPageHeight = document.body.clientHeight,
-            tippingPoint = totalPageHeight - 100,
-            currentScrollingY = window.scrollY + window.innerHeight;
-
-        if(currentScrollingY > tippingPoint  && that.statusLoad === false) {
-            that.Ajax('http://user110.js.uitclassroom.com/site/GetCategoryByIdXhrOrNotId?id=' + that.dataId + '&offset=' + that.dataOffset, that.getValue, that);
-
-        }
-    }
+CategorySingle.prototype.sendAjax = function () {
+    var url = 'http://user110.js.uitclassroom.com/site/GetCategoryByIdXhrOrNotId?id=' + this.dataId + '&offset=' + this.dataOffset;
+    this.statusLoad = false;
+    this.Ajax(url, this.getValue, this);
 }
 
 CategorySingle.prototype.getValue = function (value, self) {
@@ -44,16 +40,17 @@ CategorySingle.prototype.getValue = function (value, self) {
     }
     var categoryDiv = document.getElementById('val-single-category'),
         language = value.language,
-        offset = value.offset,
+        currentOffset = parseInt(value.offset),
         news = JSON.parse(value.news);
 
-    self.dataOffset = offset;
+    
+
+    categoryDiv.insertAdjacentHTML('beforeEnd', self.createHtmlElement(language, news) );
+    self.dataOffset = currentOffset;
     self.statusLoad = true;
-    categoryDiv.insertAdjacentHTML('beforeEnd', self.createHtmlElement(language, news), self);
-    self.statusLoad = false;
 }
 
-CategorySingle.prototype.createHtmlElement = function (lang, arr, self) {
+CategorySingle.prototype.createHtmlElement = function (lang, arr) {
     var string = '';
 
     for(var i = 0 ; i < arr.length ; i++ ){
@@ -63,7 +60,8 @@ CategorySingle.prototype.createHtmlElement = function (lang, arr, self) {
                     + '</div>'
                     + '<div class="val-description-block-gen-news">'
                         + '<span class="val-news-view">' + arr[i].views + '</span>'
-                        + '<span class="val-content-news-data">' + arr[i].date + '</span>'
+                        //+ '<span class="val-content-news-data">' + arr[i].date + '</span>'
+                        + '<span class="val-content-news-data">' + this.returnDate(arr[i].date, lang) + '</span>'
                         + '<h3 class="val-content-news-title-small">' + arr[i]['title_' + lang] + '</h3>'
                     + '</div>'
                 + '</a>';

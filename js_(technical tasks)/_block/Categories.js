@@ -1,5 +1,4 @@
 function Categories() {
-    this.totalPageHeight = document.body.clientHeight;
     //statusLoad is used to track if the category is loaded
     this.statusLoad = false;
     this.categoryLoader();
@@ -16,13 +15,10 @@ Categories.prototype.categoryLoader = function () {
 
     function foo () {
 
-        var tippingPoint = that.totalPageHeight - 300,
-            currentScrollingY = window.scrollY + window.innerHeight;
-        
-        if (currentScrollingY > tippingPoint  && that.statusLoad === false){
+        var tippingPoint = document.body.clientHeight - document.body.scrollTop;
+        if (tippingPoint < 1500  && that.statusLoad === false){
             that.statusLoad = true;
             that.Ajax('http://user110.js.uitclassroom.com/site/GetCategory?id=' + that.id , that.createHtmlElem, that);
-
         };
     }
 }
@@ -70,9 +66,12 @@ Categories.prototype.createHtmlElem = function (object, self) {
                             + self.getNewsHtml(news, language)
                         + '</div>'
                     + '</div>';
-
-    categoryBlock.insertAdjacentHTML('beforeEnd', divToinsert);
-    self.statusLoad = false;
+    if (categoryBlock === null || categoryBlock === undefined){
+        return
+    }else{
+        categoryBlock.insertAdjacentHTML('beforeEnd', divToinsert);
+        self.statusLoad = false;
+    };
 
     if(self.id == 6){
         self.id = 8;
@@ -81,5 +80,5 @@ Categories.prototype.createHtmlElem = function (object, self) {
     }
 }
 
-new Categories();
+
 
